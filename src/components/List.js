@@ -10,25 +10,24 @@ const List = ({
   setDateData,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedDateText, setEditedDateText] = useState(dateValue);
-  const [editedDiaryText, setEditedDiaryText] = useState(diaryValue);
+  const [editedDiaryValue, setEditedDiaryValue] = useState(diaryValue);
+  const [editedDateValue, setEditedDateValue] = useState(dateValue);
 
   // 업데이트 할 때 입력 받는 부분?
-  const handleDateEditChange = (e) => {
-    setEditedDateText(e.target.dateText);
-  };
-
   const handleDiaryEditChange = (e) => {
-    setEditedDiaryText(e.target.diaryText);
+    setEditedDiaryValue(e.target.diaryText);
   };
-
+  const handleDateEditChange = (e) => {
+    setEditedDateValue(e.target.dateText); //e.target.value?
+  };
+  
   // * Update 기능
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let newDiaryData = diaryData.map((data) => {
       if (data.id === id) {
-        data.title = editedDiaryText;
+        data.diaryValue = editedDiaryValue;
       }
       return data;
     });
@@ -37,7 +36,7 @@ const List = ({
 
     let newDateData = dateData.map((data) => {
       if (data.id === id) {
-        data.title = editedDateText;
+        data.dateValue = editedDateValue;
       }
       return data;
     });
@@ -66,12 +65,12 @@ const List = ({
         <form onSubmit={handleSubmit}>
           <input
             className="editDateText"
-            value={editedDateText}
+            value={editedDateValue}
             onChange={handleDateEditChange}
           />
           <input
             className="editDiaryText"
-            value={editedDiaryText}
+            value={editedDiaryValue}
             onChange={handleDiaryEditChange}
             autoFocus /* 웹 페이지를 열었을 때 해당 요소에 자동으로 커서가 위치하여 사용자가 바로 입력을 시작할 수 있게 함 */
           />

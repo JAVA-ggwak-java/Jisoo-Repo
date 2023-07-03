@@ -8,18 +8,16 @@ export default function Form({
   setDateText,
 }) {
   const handleDiaryChange = (e) => {
-    setDiaryText(e.target.value);
+    setDiaryText(e.target.diaryText);
   };
 
   const handleDateChange = (e) => {
-    setDateText(e.target.value);
+    setDateText(e.target.dateText);
   };
 
   // * html 부분
   return (
-    <form 
-    className="dataInputField" 
-    onSubmit={handleSubmitDiary}>
+    <form className="dataInputField" onSubmit={handleSubmitDiary}>
       <input
         type="text"
         name="dateInput"
@@ -36,8 +34,7 @@ export default function Form({
         value={diaryText}
         onChange={handleDiaryChange}
       />
-      <input type="submit" value="입력" className="dataInputButton" 
-      />
+      <input type="submit" value="입력" className="dataInputButton" />
     </form>
   );
 }
