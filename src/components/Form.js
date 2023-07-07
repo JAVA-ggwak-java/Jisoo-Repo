@@ -8,11 +8,11 @@ export default function Form({
   setDateText,
 }) {
   const handleDiaryChange = (e) => {
-    setDiaryText(e.target.diaryText);
+    setDiaryText(e.target.value);
   };
 
   const handleDateChange = (e) => {
-    setDateText(e.target.dateText);
+    setDateText(e.target.value);
   };
 
   // * html 부분

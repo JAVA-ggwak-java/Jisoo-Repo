@@ -36,16 +36,20 @@ function App() {
     };
 
     // 기존 일기에 새로운 일기, 날짜 추가
-    setDiaryData((prev) => [...prev, newDiary]);
+    setDiaryData((prev) => [newDiary, ...prev]);
     localStorage.setItem("diaryData", JSON.stringify([newDiary, ...diaryData]));
-    setDateData((prev) => [...prev, newDate]);
+    setDateData((prev) => [newDate, ...prev]);
     localStorage.setItem("dateData", JSON.stringify([newDate, ...dateData]));
 
     // 입력란에 있던 글씨 지워주기
     setDiaryText("");
     setDateText("");
+
+    console.log(diaryData);
+    console.log(dateData);
   };
 
+  // 전체 삭제
   const handleRemoveAll = () => {
     setDiaryData([]);
     setDateData([]);
@@ -64,12 +68,12 @@ function App() {
         <Form
           handleSubmitDiary={handleSubmitDiary}
           diaryText={diaryText}
+          dateText={dateText}
           setDiaryText={setDiaryText}
+          setDateText={setDateText}
         />
         <List
-          // id={data.id} 
-          // diaryValue={data.diaryValue}
-          // dateValue={data.dateValue}
+     
           diaryData={diaryData}
           setDiaryData={setDiaryData}
           dateData={dateData}
