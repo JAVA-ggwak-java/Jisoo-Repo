@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 
-const List = ({
-  id,
-  diaryValue,
-  dateValue,
-  diaryData,
-  setDiaryData,
-  dateData,
-  setDateData,
-}) => {
+const List = ({ id, diaryText, diaryData, setDiaryData }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedDateValue, setEditedDateValue] = useState(dateValue);
-  const [editedDiaryValue, setEditedDiaryValue] = useState(diaryValue); // Edit 할 때 입력되어 있는 부분
+  const [editedDiaryValue, setEditedDiaryValue] = useState(diaryText); // Edit 할 때 입력되어 있는 부분
+
+  console.log(diaryText);
 
   // 업데이트 할 때 입력 받는 부분?
   const handleDiaryEditChange = (e) => {
     setEditedDiaryValue(e.target.value);
-  };
-  const handleDateEditChange = (e) => {
-    setEditedDateValue(e.target.value); //e.target.diaryText 이런 식으로 하면 안 됨
   };
 
   // * Update 기능 (save 클릭했을 때 호출)
@@ -34,15 +24,6 @@ const List = ({
     setDiaryData(newDiaryData);
     localStorage.setItem("diaryData", JSON.stringify(newDiaryData));
 
-    let newDateData = dateData.map((data) => {
-      if (data.id === id) {
-        data.dateValue = editedDateValue;
-      }
-      return data;
-    });
-    setDateData(newDateData);
-    localStorage.setItem("dateData", JSON.stringify(newDateData));
-
     setIsEditing(false);
   };
 
@@ -51,10 +32,6 @@ const List = ({
     let newDiaryData = diaryData.filter((data) => data.id !== id);
     setDiaryData(newDiaryData);
     localStorage.setItem("diaryData", JSON.stringify(newDiaryData));
-
-    let newDateData = dateData.filter((data) => data.id !== id);
-    setDateData(newDateData);
-    localStorage.setItem("dateData", JSON.stringify(newDateData));
   };
 
   // * html 부분
@@ -63,11 +40,6 @@ const List = ({
     return (
       <div className="stateOfEditing">
         <form onSubmit={handleSubmit}>
-          <input
-            className="editDateText"
-            value={editedDateValue}
-            onChange={handleDateEditChange}
-          />
           <input
             className="editDiaryText"
             value={editedDiaryValue} /* 저장된 텍스트 값 부분 */
@@ -93,12 +65,11 @@ const List = ({
         <div style={{ display: "flex" }}>
           <div>
             {diaryData.map((data) => (
-              <div style={{ display: "flex" }} key={data.id}> {/* 각 리스트들의 고유 key 가 필요함 */}
+              <div style={{ display: "flex" }} key={data.id}>
+                {" "}
+                {/* 각 리스트들의 고유 key 가 필요함 */}
                 {data.diaryValue}
-
-                <span className="editedDate">{dateValue}</span>
-                <span className="editedDiary">{diaryValue}</span>
-
+                <span className="editedDiary">{diaryText}</span>
                 <div className="isEditedButtons">
                   <button
                     onClick={() => handleRemove(data.id)}
