@@ -20,7 +20,7 @@ export default function Form({
     <form className="dataInputField" onSubmit={handleSubmitDiary}>
       <input
         type="text"
-        name="diaryInput"
+        name="diaryDateInput"
         className="dairyDateInput"
         placeholder="한 줄 일기를 작성하세요."
         value={diaryDate}
@@ -28,7 +28,7 @@ export default function Form({
       />
       <input
         type="text"
-        name="diaryInput"
+        name="diaryValueInput"
         className="dairyDataInput"
         placeholder="한 줄 일기를 작성하세요."
         value={diaryText}

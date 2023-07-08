@@ -11,6 +11,7 @@ const List = ({ diaryData, setDiaryData }) => {
               key={data.key}
               id={data.id}
               diaryValue={data.diaryValue}
+              diaryDate={data.diaryDate}
               diaryData={diaryData}
               setDiaryData={setDiaryData}
             />
