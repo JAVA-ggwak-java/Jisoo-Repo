@@ -14,8 +14,9 @@ const initialDiaryData = localStorage.getItem("diaryData")
 function App() {
   const [diaryData, setDiaryData] = useState(initialDiaryData);
   const [diaryText, setDiaryText] = useState("");
+  const [diaryDate, setDiaryDate] = useState("");
 
-  // 일기 추가가 안 되는데 문제가 뭔지 모르겠음. id 문제인가?
+
   // * Create 기능
   const handleSubmitDiary = (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ function App() {
     let newDiary = {
       id: Date.now(),
       diaryValue: diaryText,
+      diaryDate: diaryDate
     };
 
     // 기존 일기에 새로운 일기, 날짜 추가
@@ -32,6 +34,7 @@ function App() {
 
     // 입력란에 있던 글씨 지워주기
     setDiaryText("");
+    setDiaryDate("");
   };
 
   // 전체 삭제
@@ -52,6 +55,8 @@ function App() {
           handleSubmitDiary={handleSubmitDiary}
           diaryText={diaryText}
           setDiaryText={setDiaryText}
+          diaryDate={diaryDate}
+          setDiaryDate={setDiaryDate}
         />
         <List
           diaryText={diaryText}
