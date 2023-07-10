@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Form from "./components/Form";
 import List from "./components/List";
 
@@ -13,51 +13,55 @@ const initialDiaryData = localStorage.getItem("diaryData")
 
 function App() {
   const [diaryData, setDiaryData] = useState(initialDiaryData);
-  const [dateData, setDateData] = useState(initialDateData);
+  const [diaryText, setDiaryText] = useState("");
+  const [diaryDate, setDiaryDate] = useState("");
 
-  // 일기 추가가 안 되는데 문제가 뭔지 모르겠음. id 문제인가?
+
   // * Create 기능
   const handleSubmitDiary = (e) => {
-    
     e.preventDefault();
-    console.log(e.dateValue)
-    console.log(e.diaryValue)
-    
+
     // 새로운 일기 데이터, 날짜 데이터
     let newDiary = {
       id: Date.now(),
-      date: 
       diaryValue: diaryText,
+      diaryDate: diaryDate
     };
 
     // 기존 일기에 새로운 일기, 날짜 추가
-    setDiaryData((prev) => [...prev, newDiary]);
+    setDiaryData((prev) => [newDiary, ...prev]);
     localStorage.setItem("diaryData", JSON.stringify([newDiary, ...diaryData]));
 
     // 입력란에 있던 글씨 지워주기
     setDiaryText("");
+    setDiaryDate("");
   };
 
+  // 전체 삭제
+  const handleRemoveAll = () => {
+    setDiaryData([]);
+    localStorage.setItem("diaryData", JSON.stringify([]));
+  };
 
   // * html 부분
   return (
     <div>
       <div>
         <h1>한 줄 일기</h1>
+        <button onClick={handleRemoveAll}>Delete All</button>
       </div>
       <div>
         <Form
           handleSubmitDiary={handleSubmitDiary}
           diaryText={diaryText}
           setDiaryText={setDiaryText}
+          diaryDate={diaryDate}
+          setDiaryDate={setDiaryDate}
         />
         <List
-          // diaryValue={diaryValue}
-          // dateValue={dateValue}
+          diaryText={diaryText}
           diaryData={diaryData}
           setDiaryData={setDiaryData}
-          dateData={dateData}
-          setDateData={setDateData}
         />
       </div>
     </div>
