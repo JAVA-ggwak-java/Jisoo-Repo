@@ -1,114 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import ListItem from "./ListItem";
 
-const List = ({
-  id,
-  diaryValue,
-  dateValue,
-  diaryData,
-  setDiaryData,
-  dateData,
-  setDateData,
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedDateText, setEditedDateText] = useState(dateValue);
-  const [editedDiaryText, setEditedDiaryText] = useState(diaryValue);
-
-  // 업데이트 할 때 입력 받는 부분?
-  const handleDateEditChange = (e) => {
-    setEditedDateText(e.target.dateText);
-  };
-
-  const handleDiaryEditChange = (e) => {
-    setEditedDiaryText(e.target.diaryText);
-  };
-
-  // * Update 기능
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    let newDiaryData = diaryData.map((data) => {
-      if (data.id === id) {
-        data.title = editedDiaryText;
-      }
-      return data;
-    });
-    setDiaryData(newDiaryData);
-    localStorage.setItem("diaryData", JSON.stringify(newDiaryData));
-
-    let newDateData = dateData.map((data) => {
-      if (data.id === id) {
-        data.title = editedDateText;
-      }
-      return data;
-    });
-    setDateData(newDateData);
-    localStorage.setItem("dateData", JSON.stringify(newDateData));
-
-    setIsEditing(false);
-  };
-
-  // * Delete 기능
-  const handleRemove = (id) => {
-    let newDiaryData = diaryData.filter((data) => data.id !== id);
-    setDiaryData(newDiaryData);
-    localStorage.setItem("diaryData", JSON.stringify(newDiaryData));
-
-    let newDateData = dateData.filter((data) => data.id !== id);
-    setDateData(newDateData);
-    localStorage.setItem("dateData", JSON.stringify(newDateData));
-  };
-
-  // * html 부분
-  if (isEditing) {
-    /* isEditing이 true 즉, 수정 중인 데이터 */
-    return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="editDateText"
-            value={editedDateText}
-            onChange={handleDateEditChange}
-          />
-          <input
-            className="editDiaryText"
-            value={editedDiaryText}
-            onChange={handleDiaryEditChange}
-            autoFocus /* 웹 페이지를 열었을 때 해당 요소에 자동으로 커서가 위치하여 사용자가 바로 입력을 시작할 수 있게 함 */
-          />
-        </form>
-
-        <div className="isEditingButtons">
-          <button onClick={() => setIsEditing(false)} type="button">
-            X
-          </button>
-          <button onClick={handleSubmit} type="submit">
-            Save
-          </button>
+const List = ({ diaryData, setDiaryData }) => {
+  return (
+    <div className="listItems">
+      <div style={{ display: "flex" }}>
+        <div>
+          {diaryData.map((data) => (
+            <ListItem
+              key={data.key}
+              id={data.id}
+              diaryValue={data.diaryValue}
+              diaryDate={data.diaryDate}
+              diaryData={diaryData}
+              setDiaryData={setDiaryData}
+            />
+          ))}
         </div>
       </div>
-    );
-  } else {
-    /* isEditing이 false 즉, 작성이 완료된 데이터 */
-    return (
-      <div>
-        <span className="editedDate">
-            {dateValue}
-        </span>
-        <span className="editedDiary">
-            {diaryValue}
-        </span>
-
-        <div className="isEditedButtons">
-          <button onClick={() => handleRemove(id)} className="removeButton">
-            X
-          </button>
-          <button onClick={() => setIsEditing(true)} className="editButton">
-            Edit
-          </button>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default List;
