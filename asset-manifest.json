@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Jisoo-Repo/static/css/main.073c9b0a.css",
+    "main.js": "/Jisoo-Repo/static/js/main.2fe343f9.js",
+    "static/js/787.b6cc1373.chunk.js": "/Jisoo-Repo/static/js/787.b6cc1373.chunk.js",
+    "index.html": "/Jisoo-Repo/index.html",
+    "main.073c9b0a.css.map": "/Jisoo-Repo/static/css/main.073c9b0a.css.map",
+    "main.2fe343f9.js.map": "/Jisoo-Repo/static/js/main.2fe343f9.js.map",
+    "787.b6cc1373.chunk.js.map": "/Jisoo-Repo/static/js/787.b6cc1373.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.2fe343f9.js"
+  ]
+}
